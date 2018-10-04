@@ -53,6 +53,32 @@ Now remove it.
 
     docker container rm determined_darwin
 
+That was easy, but let's check the help command for how simplify it.
+
+    docker container run --help
+
+```
+Usage:  docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+
+Options:
+...
+  -d, --detach                         Run container in background and
+      --name string                    Assign a name to the container
+  -p, --publish list                   Publish a container's port(s) to
+      --rm                             Automatically remove the container
+...
+```
+
+The following will start a container in the background with a known name and it deletes itself on termination.
+
+    docker container run --rm -d --name myweb -p 9000:80 nginx
+
+When we are done, use our name to stop and remove it.
+
+    docker container stop myweb
+
 ## Commands to learn
 
 - `docker image pull nginx`
