@@ -79,6 +79,37 @@ When we are done, use our name to stop and remove it.
 
     docker container stop myweb
 
+## Interactive "login" with a container
+
+If it is not already running, start an nginx container.
+
+    docker container run --rm -d --name myweb -p 9000:80 nginx
+
+Execute the unix name utility inside the container, arguments can be sent too.
+
+    docker container exec myweb uname
+    docker container exec myweb uname --all
+
+Execute a command that reads standard input (`--interactive`) and counts words with "o" characters.
+
+    echo hello world | docker container exec -i myweb grep -c o
+
+Note if this does not return "2" it could be your console emulator, you can try another but it is not important.
+
+Emulate a login with an interactive terminal (`--tty`). Type `exit` to end the bash shell.
+
+    docker container exec -i -t myweb bash
+    ls -la
+    exit
+
+Run a bash shell in a new container.
+
+    docker container run --rm -it alpine sh
+    ls -la
+    exit
+
+This will pull the alpine image if you don't already have it. This is a minimal image commonly used because of its small size (try listing images again). It does not contain bash which is why we use the simpler bourne shell (`sh`).
+
 ## Commands to learn
 
 - `docker image pull nginx`
