@@ -16,7 +16,7 @@ Enough words, let's run something.
 
 In this section we learn how to run and existing container, when finished you should understand what this does: `docker container run --rm -d --name myweb -p 9000:80 nginx`
 
-Get the popular official image of the webserver nginx ("engine X").
+Get the popular webserver nginx ("engine X"). This is the latest official image from: https://hub.docker.com/_/nginx/
 
     docker image pull nginx
 
@@ -102,6 +102,7 @@ Execute an interactive terminal (`--tty`). Type `exit` to end the bash shell.
 
     docker container exec -i -t myweb bash
     ls -la
+    cat /usr/share/nginx/html/index.html
     exit
 
 Run a bash shell in a new container.
@@ -111,6 +112,47 @@ Run a bash shell in a new container.
     exit
 
 This will pull the alpine image if you don't already have it. This is a minimal image commonly used because of its small size (try listing images again). It does not contain bash which is why we use the simpler bourne shell (`sh`).
+
+## Building and modifying a container
+
+Editing file and packages inside seems like a good idea, try appending a message to the default webpage of nginx to be visible at: http://localhost:9000
+
+    docker container exec -i -t myweb bash
+    cd /usr/share/nginx/html
+    echo 'Hello' >> index.html
+    exit
+
+Or instead run do it in one line.
+
+    docker container exec myweb bash -c 'echo Howdy >> /usr/share/nginx/html/index.html'
+
+This change will show up in the browser, however it is normal practice to replace containers so spin up our container again.
+
+    docker container kill myweb
+    docker container run --rm -d --name myweb -p 9000:80 nginx
+
+Now we have a new instance and our modification is lost, check your browser.
+
+To build our own version we will add layers to nginx, create a `Dockerfile` containing:
+
+    FROM nginx
+
+    RUN echo "<p><i>Built at $(date)</i></p>" >> /usr/share/nginx/html/index.html
+
+Build it with a custom name (`--tag`, despite being "name and optionally a tag"). The trailing `.` is the path to the build context directory containing our file.
+
+    docker image build -t helloworld .
+
+List the images and you will see our image with the default tag of `latest`.
+
+    docker image list helloworld
+
+Note the full naming scheme is `<[registry address]>/<[user or project]>/<image name>[:<tag>]` and repository is fully qualified image name excluding the tag.
+
+    docker container stop myweb
+    docker container run --rm -d --name myweb -p 9000:80 helloworld
+
+In the browser you will see our build date time appended to the bottom.
 
 ## Commands to learn
 
