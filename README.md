@@ -79,7 +79,9 @@ When we are done, use our name to stop and remove it.
 
     docker container stop myweb
 
-## Interactive "login" with a container
+## Interactive "login" into a container
+
+To debug or otherwise interact with a VM you would probably ssh into it, with a container you need to understand how to run a shell in an existing or new container, specially you will see how to use `-it` with bash.
 
 If it is not already running, start an nginx container.
 
@@ -94,9 +96,9 @@ Execute a command that reads standard input (`--interactive`) and counts words w
 
     echo hello world | docker container exec -i myweb grep -c o
 
-Note if this does not return "2" it could be your console emulator, you can try another but it is not important.
+Note if this does not return "2" it could be your console emulator, you can try another but it is not as important as the next combination.
 
-Emulate a login with an interactive terminal (`--tty`). Type `exit` to end the bash shell.
+Execute an interactive terminal (`--tty`). Type `exit` to end the bash shell.
 
     docker container exec -i -t myweb bash
     ls -la
