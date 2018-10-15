@@ -14,7 +14,7 @@ Enough words, let's run something.
 
 ## Run a container from an image
 
-In this section we learn how to run and existing container, when finished you should understand what this does: `docker container run --rm -d --name myweb -p 9000:80 nginx`
+In this section we learn how to run an existing container, when finished you should understand what the following command does: `docker container run --rm -d --name myweb -p 9000:80 nginx`
 
 Get the popular webserver nginx ("engine X"). This is the latest official image from: https://hub.docker.com/_/nginx/
 
@@ -24,7 +24,7 @@ List all images.
 
     docker image list
 
-Run a container instance of nginx and map a local port to port 80 (`--publish`) then open it in your browser: http://localhost:9000
+Run a container instance of nginx and map a local port to port 80 (`-p` is `--publish`) then open it in your browser: http://localhost:9000
 
     docker container run -p 9000:80 nginx
 
@@ -44,7 +44,7 @@ Press `Ctrl+C` to detach. With the same (or different) identifier stop the conta
 
     docker container kill 96
 
-Great, your browser should not show an error connecting. However the container still exists when you also list stopped containers (`--all`).
+Great, your browser should now show an error connecting when you refresh. However the container still exists when you also list stopped containers (`-a` is `--all`).
 
     docker container list
     docker container list -a
@@ -53,7 +53,7 @@ Now remove it.
 
     docker container rm determined_darwin
 
-That was easy, but let's check the help command for how simplify it.
+That was easy, but let's check help on the run command for how to reduce the number of steps.
 
     docker container run --help
 
@@ -81,7 +81,7 @@ When we are done, use our name to stop and remove it.
 
 ## Interactive "login" into a container
 
-To debug or otherwise interact with a VM you would probably ssh into it, with a container you need to understand how to run a shell in an existing or new container, specially you will see how to use `-it` with bash.
+To debug or otherwise interact with a VM you would probably ssh into it, and similarly with a container it is useful to understand how to run an interactive shell. Specially this section will show you how to use `-it` with `exec` or `run` for bash in either an existing or new container.
 
 If it is not already running, start an nginx container.
 
@@ -92,20 +92,20 @@ Execute the unix name utility inside the container, arguments can be sent too.
     docker container exec myweb uname
     docker container exec myweb uname --all
 
-Execute a command that reads standard input (`--interactive`) and counts words with "o" characters.
+Execute a command that reads standard input (`-i` is `--interactive`) and counts words with "o" characters.
 
     echo hello world | docker container exec -i myweb grep -c o
 
 Note if this does not return "2" it could be your console emulator, you can try another but it is not as important as the next combination.
 
-Execute an interactive terminal (`--tty`). Type `exit` to end the bash shell.
+Execute an interactive terminal (`-t` is `--tty`). Type `exit` to end the bash shell.
 
     docker container exec -i -t myweb bash
     ls -la
     cat /usr/share/nginx/html/index.html
     exit
 
-Run a bash shell in a new container.
+Run a bash shell in a new container (`-it` is `--interactive` and `--tty`).
 
     docker container run --rm -it alpine sh
     ls -la
@@ -139,7 +139,7 @@ To build our own version we will add layers to nginx, create a `Dockerfile` cont
 
     RUN echo "<p><i>Built at $(date)</i></p>" >> /usr/share/nginx/html/index.html
 
-Build it with a custom name (`--tag`, despite being "name and optionally a tag"). The trailing `.` is the path to the build context directory containing our file.
+Build it with a custom name (`-t` is `--tag`, despite being "name and optionally a tag"). The trailing `.` is the path to the build context directory containing our file.
 
     docker image build -t helloworld .
 
