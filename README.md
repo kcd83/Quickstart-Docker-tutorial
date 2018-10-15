@@ -135,9 +135,11 @@ Now we have a new instance and our modification is lost, check your browser.
 
 To build our own version we will add layers to nginx, create a `Dockerfile` containing:
 
-    FROM nginx
+```Dockerfile
+FROM nginx
 
-    RUN echo "<p><i>Built at $(date)</i></p>" >> /usr/share/nginx/html/index.html
+RUN echo "<p><i>Built at $(date)</i></p>" >> /usr/share/nginx/html/index.html
+```
 
 Build it with a custom name (`-t` is `--tag`, despite being "name and optionally a tag"). The trailing `.` is the path to the build context directory containing our file.
 
@@ -153,6 +155,39 @@ Note the full naming scheme is `<[registry address]>/<[user or project]>/<image 
     docker container run --rm -d --name myweb -p 9000:80 helloworld
 
 In the browser you will see our build date time appended to the bottom.
+
+To add our own web page create an `index.html` with HTML such as the following:
+
+```html
+<!DOCTYPE html>
+<html>
+<title>My Web</title>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>
+```
+
+Place that file beside our `Dockerfile` then copy it over the top of the default using the `COPY` line below:
+
+```Dockerfile
+FROM nginx
+
+COPY index.html /usr/share/nginx/html/index.html
+
+RUN echo "<p><i>Built at $(date)</i></p>" >> /usr/share/nginx/html/index.html
+```
+
+Build your image again, this time with a tag. List the your new image to see both all versions of your image.
+
+    docker image build -t helloworld:2 .
+    docker image list helloworld
+
+Run it and in the browser you will now see your own webpage.
+
+    docker container stop myweb
+    docker container run --rm -d --name myweb -p 9000:80 helloworld:2
+
 
 ## Commands to learn
 
