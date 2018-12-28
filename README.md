@@ -6,6 +6,10 @@ Docker provides very lightweight and portable virtual machines using a technolog
 
 In this tutorial we focus on demonstrating the typical workflow, which is similar to compiling software locally and shipping the binaries except with Docker we package the whole machine. To update a running container we replace it with a newer version of the image. This is known as immutable infrastructure and it is easier to appreciate once you have seen it in action.
 
+* [Run a container from an image](#run-a-container-from-an-image)
+* [Interactive "login" into a container](#interactive-login-into-a-container)
+* [Building and modifying a container](#building-and-modifying-a-container)
+
 ## Prerequisites
 
 Install Docker CE Desktop from https://www.docker.com/get-started and have a command line. If you are on Windows this will be PowerShell.
