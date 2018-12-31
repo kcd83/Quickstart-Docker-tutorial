@@ -14,7 +14,7 @@ In this tutorial we focus on demonstrating the typical workflow, which is simila
 
 ## Prerequisites
 
-Install Docker CE Desktop from https://www.docker.com/get-started and have a command line. If you are on Windows this will be PowerShell.
+Install Docker CE Desktop from [docker.com/get-started](https://www.docker.com/get-started) and have a command line. If you are on Windows this will be PowerShell.
 
 Docker for Windows requires HyperV and actually launches a Linux VM called Mobylinux for Linux containers. Ignore Windows containers, they are an advanced use case you don't need to know about yet. All your interactions with Docker are proxied to Mobylinux and this is helpful to understand if things go wrong. For example, Docker for Windows needs your current password to mount your local drives, more on that later.
 
@@ -22,9 +22,10 @@ Enough words, let's run something.
 
 ## Run a container from an image
 
-In this section we learn how to run an existing container, when finished you should understand what the following command does: `docker container run --rm -d --name myweb -p 9000:80 nginx`
+In this section we learn how to run an existing container, when finished you should understand what the following command does:
+`docker container run --rm -d --name myweb -p 9000:80 nginx`
 
-Get the popular webserver nginx ("engine X"). This is the latest official image from: https://hub.docker.com/_/nginx/
+Get the popular webserver nginx ("engine X"). This is the latest official image from: [hub.docker.com/_/nginx/](https://hub.docker.com/_/nginx/)
 
     docker image pull nginx
 
@@ -32,11 +33,11 @@ List all images.
 
     docker image list
 
-Run a container instance of nginx and map a local port to port 80 (`-p` is `--publish`) then open it in your browser: http://localhost:9000
+Run a container instance of nginx and map a local port to port 80 (`-p` is `--publish`) then open it in your browser: [localhost:9000](http://localhost:9000)
 
     docker container run -p 9000:80 nginx
 
-You might be prompted allow this through your local firewall, allow it. You should see access logs for `"GET / HTTP/1.1" 200` or the Not Modified status `304` when you refresh you browser.
+You might be prompted allow this through your local firewall, allow it. You should see access logs for `"GET / HTTP/1.1" 200` or the Not Modified status `304` when you refresh your browser.
 
 Press `Ctrl+C` to detach. The container is still running in the background and you can see it with:
 
@@ -48,9 +49,9 @@ Using an identifier to show and follow the output, like before we detached.
 
     docker container logs --tail 1 --follow determined_darwin
 
-Press `Ctrl+C` to detach. With the same (or different) identifier stop the container.
+Press `Ctrl+C` to detach. Stop the container with the same identifier or try using the id (I use `2e` which was short for `2e9d7ea7a1e9`).
 
-    docker container kill 96
+    docker container kill 2e
 
 Great, your browser should now show an error connecting when you refresh. However the container still exists when you also list stopped containers (`-a` is `--all`).
 
