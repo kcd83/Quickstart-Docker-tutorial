@@ -205,4 +205,29 @@ Run it and in the browser you will now see your own webpage.
 
 If you share your source files other people could build the same image but it is more common to publish the built image to a registry. The power of immutable infrastructure is to pull and run exactly the same version of a container anywhere.
 
+## Summary of Docker commands
+
 Congratulations you can build, run and interact with containers! There is plenty more to learn but hopefully this has demystified Docker and you now know where to start.
+
+Below are commands and optional parameters used in this tutorial.
+
+| Command       | Parameter | Description                                           |
+| ------------- | --------- | ----------------------------------------------------- |
+| `docker container list` | | List containers on your workstation, also `docker ps` |
+|               | `-a`      | Include all (not just running containers)
+| `docker container run <image>` | | Start a container from an image, also `docker run` |
+|               | `-d`      | Detach and run in background |
+|               | `--name <name>` | Assign a name to the container |
+|               | `-p <port>:<port>`| Publish a container's port(s) |
+|               | `--rm`    | Automatically remove the container when it stops |
+|               | `-i`      | Interactive when running in the foreground (use with `-t`) |
+|               | `-t`      | Allocate TeleTYpewriter to use the terminal (use with `-i`) |
+| `docker container exec <container> <command>` | | Execute command inside a container, also `docker exec` |
+|               | `-i`      | Interactive when running in the foreground (use with `-t`) |
+|               | `-t`      | Allocate TeleTYpewriter to use the terminal (use with `-i`) |
+| `docker container stop <container>` | | Stop a running container |
+| `docker container rm <container>` | | Remove a container |
+| `docker image pull <image>` | | Download image, defaults to `:latest` from Docker Hub, also `docker pull` |
+| `docker image list` |     | List images on your workstation |
+| `docker image build <path> ` | | Create an image with a context (e.g. `.`), also `docker build` |
+|               | `-t`      | Name and optionally a tag for the image |
