@@ -25,7 +25,7 @@ Enough words, let's run something.
 In this section we learn how to run an existing container, when finished you should understand what the following command does:
 `docker container run --rm -d --name myweb -p 9000:80 nginx`
 
-Get the popular webserver nginx ("engine X"). This is the latest official image from: [hub.docker.com/_/nginx/](https://hub.docker.com/_/nginx/)
+Get the popular webserver nginx ("engine X"). This is the latest official image from: [hub.docker.com/\_/nginx/](https://hub.docker.com/_/nginx/)
 
     docker image pull nginx
 
