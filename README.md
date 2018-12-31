@@ -2,6 +2,8 @@
 
 In this quick tutorial you will run simple Docker commands so you can get hands on with the fundamental concepts of containers. No prior knowledge is expected and even if you have already dabbled you should be able to skim through this in only a few minutes.
 
+![Quickstart Docker demo animation](QuickstartDockerDemo.gif)
+
 Docker provides very lightweight and portable virtual machines using a technology called "cgroups" (control groups) instead of a traditional hypervisor. Many of the benefits stem from not fully virtualising the whole hardware stack like a traditional virtual machine (VM) and instead Docker uses cgroups to isolate the container while sharing the same Linux kernel.
 
 In this tutorial we focus on demonstrating the typical workflow, which is similar to compiling software locally and shipping the binaries except with Docker we package the whole machine. To update a running container we replace it with a newer version of the image. This is known as immutable infrastructure and it is easier to appreciate once you have seen it in action.
