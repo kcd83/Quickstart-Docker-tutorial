@@ -85,9 +85,11 @@ When we are done, use our name to stop and remove it.
 
     docker container stop myweb
 
+You can find other images to run from a registry such as [Docker Hub](https://hub.docker.com/search?q=&type=image).
+
 ## Interactive "login" into a container
 
-To debug or otherwise interact with a VM you would probably ssh into it, and similarly with a container it is useful to understand how to run an interactive shell. Specially this section will show you how to use `-it` with `exec` or `run` for bash in either an existing or new container.
+To debug or otherwise interact with a VM you would probably ssh into it, and similarly with a container it is useful to understand how to run an interactive shell. Specifically this section will show you how to use `-it` with `exec` or `run` for bash in either an existing or new container.
 
 If it is not already running, start an nginx container.
 
@@ -117,11 +119,15 @@ Run a bash shell in a new container (`-it` is `--interactive` and `--tty`).
     ls -la
     exit
 
-This will pull the alpine image if you don't already have it. This is a minimal image commonly used because of its small size (try listing images again). It does not contain bash which is why we use the simpler bourne shell (`sh`).
+This will pull the alpine image if you don't already have it. This is a minimal image commonly used because of its small size (try listing images again to see the size). It does not contain `bash` which is why we use the simpler _bourne shell_ (`sh`).
+
+Running a container interactively is normally useful for debugging images as you build them or to run command line tools.
 
 ## Building and modifying a container
 
-Editing file and packages inside seems like a good idea, try appending a message to the default webpage of nginx to be visible at: http://localhost:9000
+To run a customised container it is normal practice to build your own image even for the smallest change. Let's explore editing files and packages inside an existing container before seeing how easy it is to build an image from a `Dockerfile`.
+
+Try editing a file by appending a message to the default webpage of nginx to be visible at: http://localhost:9000
 
     docker container exec -i -t myweb bash
     cd /usr/share/nginx/html
@@ -155,7 +161,7 @@ List the images and you will see our image with the default tag of `latest`.
 
     docker image list helloworld
 
-Note the full naming scheme is `<[registry address]>/<[user or project]>/<image name>[:<tag>]` and repository is fully qualified image name excluding the tag.
+Note the fully qualified image naming scheme is `<[registry address]>/<[user or project]>/<image name>[:<tag>]`. This name excluding the tag is also called the _repository_.
 
     docker container stop myweb
     docker container run --rm -d --name myweb -p 9000:80 helloworld
@@ -193,3 +199,7 @@ Run it and in the browser you will now see your own webpage.
 
     docker container stop myweb
     docker container run --rm -d --name myweb -p 9000:80 helloworld:2
+
+If you share your source files other people could build the same image but it is more common to publish the built image to a registry. The power of immutable infrastructure is to pull and run exactly the same version of a container anywhere.
+
+Congratulations you can build, run and interact with containers! There is plenty more to learn but hopefully this has demystified Docker and you now know where to start.
