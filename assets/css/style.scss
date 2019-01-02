@@ -2,10 +2,21 @@
 ---
 @import "{{ site.theme }}";
 
+.inner {
+  width:800px;
+}
+thead tr, tr:nth-child(2n) {
+  background-color: #ebebeb;
+}
+ul li {
+  padding-left: 0;
+}
 td {
   font-size: 0.9em;
   text-align:left;
 }
 td code {
-  font-size: 0.85em;
+  font-size: 0.9em;
+  background-color: transparent;
+  border: none;
 }
