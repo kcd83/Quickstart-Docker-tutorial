@@ -11,6 +11,7 @@ In this tutorial we focus on demonstrating the typical workflow, which is simila
 * [Run a container from an image](#run-a-container-from-an-image)
 * [Interactive "login" into a container](#interactive-login-into-a-container)
 * [Building and modifying a container](#building-and-modifying-a-container)
+* [Summary of Docker commands](#summary-of-docker-commands)
 
 ## Prerequisites
 
@@ -213,21 +214,21 @@ Below are commands and optional parameters used in this tutorial.
 
 | Command       | Parameter | Description                                           |
 | ------------- | --------- | ----------------------------------------------------- |
-| `docker container list` | | List containers on your workstation, also `docker ps` |
+| `docker container list` <br>(also `docker ps`) | | List containers on your workstation |
 |               | `-a`      | Include all (not just running containers)
-| `docker container run <image>` | | Start a container from an image, also `docker run` |
+| `docker container run <image>` <br>(also `docker run`) | | Start a container from an image |
 |               | `-d`      | Detach and run in background |
 |               | `--name <name>` | Assign a name to the container |
 |               | `-p <port>:<port>`| Publish a container's port(s) |
 |               | `--rm`    | Automatically remove the container when it stops |
 |               | `-i`      | Interactive when running in the foreground (use with `-t`) |
 |               | `-t`      | Allocate TeleTYpewriter to use the terminal (use with `-i`) |
-| `docker container exec <container> <command>` | | Execute command inside a container, also `docker exec` |
+| `docker container exec <container> <command>` <br>(also `docker exec`) | | Execute command inside a container |
 |               | `-i`      | Interactive when running in the foreground (use with `-t`) |
 |               | `-t`      | Allocate TeleTYpewriter to use the terminal (use with `-i`) |
-| `docker container stop <container>` | | Stop a running container |
-| `docker container rm <container>` | | Remove a container |
-| `docker image pull <image>` | | Download image, defaults to `:latest` from Docker Hub, also `docker pull` |
+| `docker container stop <container>` <br>(also `docker stop`) | | Stop a running container |
+| `docker container rm <container>` <br>(also `docker rm`) | | Remove a container |
+| `docker image pull <image>` <br>(also `docker pull`) | | Download image, defaults to `:latest` from Docker Hub |
 | `docker image list` |     | List images on your workstation |
-| `docker image build <path> ` | | Create an image with a context (e.g. `.`), also `docker build` |
+| `docker image build <path>` <br>(also `docker build`) | | Create an image with a context (e.g. `.`) |
 |               | `-t`      | Name and optionally a tag for the image |
